@@ -1,35 +1,30 @@
-# Стартовий Node.js проєкт для розробки веб-додатку
+# start
 
-Це стартовий Node.js проєкт "Дошка оголошень" на базі Express, EJS та Prisma ORM з SQLite базою даних.
+Відправна точка для того ж підходу, що й у [`finish`](../finish/): HTML-сторінки з сервера, дані в SQLite через Prisma. Тут **немає** готового логіну й сесій — лише каркас, на який навішується власна логіка.
 
-## Архітектура проєкту:
+У [`app.ts`](./app.ts) зараз мінімум: парсинг форм, EJS, **404** і **500**; контентних маршрутів немає.
 
-- `app.js` — точка входу додатку (порожня, потребує реалізації)
-- `package.json` — залежності (Express, EJS, Prisma, dotenv)
-- `lib/prisma.js` — клієнт Prisma для роботи з БД
-- `prisma/schema.prisma` — схема БД (порожня, потребує реалізації)
-- `views/` — EJS шаблони (тільки 404.ejs)
-- `.env.example` — приклад змінних середовища
+## Файли
 
-## Що потрібно реалізувати:
+- [`app.ts`](./app.ts) — точка входу, порт `3000`.
+- [`package.json`](./package.json) — скрипти `start` / `dev`, Prisma (`prisma:generate`, `prisma:migrate`, `prisma:studio`).
+- [`lib/prisma.ts`](./lib/prisma.ts) — `PrismaClient` з адаптером `@prisma/adapter-better-sqlite3`, клієнт з [`generated/prisma`](./prisma/schema.prisma) (після `prisma generate`).
+- [`prisma/schema.prisma`](./prisma/schema.prisma) — datasource SQLite; **моделей поки немає** (додавання `User` тощо — частина завдання).
+- [`prisma.config.ts`](./prisma.config.ts) — конфіг Prisma CLI.
+- [`.env.example`](./.env.example) — `DATABASE_URL` для SQLite.
+- [`views/404.ejs`](./views/404.ejs), [`views/error.ejs`](./views/error.ejs) — шаблони для 404 і помилки сервера.
+- [`tsconfig.json`](./tsconfig.json) — налаштування TypeScript.
 
-1. **Модель даних** — визначити схему в prisma/schema.prisma
-2. **Базові маршрути** — GET/POST обробники
-3. **Шаблони EJS** — сторінки додатку
-4. **Валідація** — перевірка даних форм
-5. **Обробка помилок** — middleware для помилок
+## Запуск
 
-## Технології:
+```powershell
+cd start
+npm install
+copy .env.example .env
+```
 
-- **Express** — веб-фреймворк
-- **EJS** — шаблонізатор
-- **Prisma** — ORM для роботи з БД
-- **SQLite** — база даних
+Після того як з’являться моделі в [`prisma/schema.prisma`](./prisma/schema.prisma): `npx prisma generate`, потім `npx prisma migrate dev`. Далі:
 
-## Запуск проєкту:
-
-1. Встановити залежності: `npm install`
-2. Створити `.env` файл на основі `.env.example`
-3. Визначити схему даних в `prisma/schema.prisma`
-4. Запустити міграції: `npx prisma migrate dev`
-5. Запустити сервер: `npm start`
+```powershell
+npm run dev
+```

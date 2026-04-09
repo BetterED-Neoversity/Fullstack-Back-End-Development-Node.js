@@ -3,6 +3,7 @@ import express, { Request } from 'express'
 const app = express()
 const PORT = 3000
 
+// Middleware для парсингу JSON
 app.use(express.json())
 
 interface Book {

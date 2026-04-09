@@ -1,15 +1,14 @@
-import fs from 'fs'
+import { pipeline } from "stream/promises";
+import fs from "fs";
+import zlib from "zlib";
 
-const read = fs.createReadStream('test.txt')
-
-read.on('data', (chunk) => {
-  console.log('Дані отримано')
-})
-
-read.on('end', () => {
-  console.log('1. Всі дані прочитано')
-})
-
-read.on('close', () => {
-  console.log('2. Stream закрито, ресурси звільнено')
-})
+try {
+  await pipeline(
+    fs.createReadStream("video.mp4"),
+    zlib.createGzip(),
+    fs.createWriteStream("video.mp4.gz"),
+  );
+  console.log("Архів готовий");
+} catch (err) {
+  console.error("Помилка:", err.message);
+}

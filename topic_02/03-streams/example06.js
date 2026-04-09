@@ -1,9 +1,19 @@
-import fs from 'fs'
+import fs from "fs";
 
-const write = fs.createWriteStream('output.txt')
+const stream = fs.createReadStream("access.log", {
+  encoding: "utf8",
+  highWaterMark: 1024,
+});
 
-write.write('Перший рядок\n')
-write.write('Другий рядок\n')
-write.write('Третій рядок\n')
+try {
+  let totalBytes = 0;
 
-write.end('Останній рядок\n')
+  for await (const chunk of stream) {
+    totalBytes += chunk.length;
+    process.stdout.write(chunk);
+  }
+
+  console.log(`\nПрочитано байтів: ${totalBytes}`);
+} catch (err) {
+  console.error("Помилка:", err.message);
+}

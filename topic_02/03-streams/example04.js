@@ -1,15 +1,7 @@
-import fs from 'fs'
+import fs from "fs";
+import zlib from "zlib";
 
-const read = fs.createReadStream('nonexistent.txt')
-
-read.on('data', (chunk) => {
-  console.log(chunk.toString())
-})
-
-read.on('error', (err) => {
-  console.log('Помилка читання файлу:', err.message)
-})
-
-read.on('end', () => {
-  console.log('Файл прочитано')
-})
+fs.createReadStream("video.mp4")
+  .pipe(zlib.createGzip())
+  .pipe(fs.createWriteStream("video.mp4.gz"))
+  .on("close", () => console.log("Архів готовий"));

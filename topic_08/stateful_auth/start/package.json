@@ -1,12 +1,12 @@
 {
-  "name": "topic_10",
+  "name": "topic_08_stateless_auth",
   "version": "1.0.0",
-  "description": "Дошка оголошень - домашнє завдання з Node.js курсу",
   "type": "module",
-  "main": "app.js",
+  "main": "app.ts",
   "scripts": {
-    "start": "node app.js",
-    "dev": "node app.js",
+    "start": "tsx app.ts",
+    "dev": "tsx --watch app.ts",
+    "typecheck": "tsc --noEmit",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:studio": "prisma studio"
@@ -26,7 +26,11 @@
     "express": "^5.2.1"
   },
   "devDependencies": {
+    "@types/ejs": "^3.1.5",
+    "@types/express": "^5.0.6",
     "@types/node": "^25.0.9",
-    "prisma": "^7.2.0"
+    "prisma": "^7.2.0",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.2"
   }
 }

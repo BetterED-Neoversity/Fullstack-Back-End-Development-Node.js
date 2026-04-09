@@ -1,11 +1,15 @@
-import fs from 'fs'
+import fs from "fs";
 
-const read = fs.createReadStream('test.txt', {
-  highWaterMark: 1024, // читаємо по 1 кілобайту
-})
+const read = fs.createReadStream("access.log", { encoding: "utf8" });
 
-let counter = 0
-read.on('data', (chunk) => {
-  counter++
-  console.log(`Chunk #${counter}, розмір: ${chunk.length} байт`)
-})
+read.on("data", (chunk) => {
+  process.stdout.write(chunk);
+});
+
+read.on("end", () => {
+  console.log("\n--- файл прочитано ---");
+});
+
+read.on("error", (err) => {
+  console.error("Помилка:", err.message);
+});

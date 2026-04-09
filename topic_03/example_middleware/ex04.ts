@@ -1,49 +1,56 @@
-import express, { Request, Response, NextFunction } from 'express'
+import express, { Request, Response, NextFunction } from "express";
 
-const app = express()
-const PORT = 3000
+const app = express();
+const PORT = 3000;
+
+app.use(express.json());
+
+app.use((req: Request, res: Response, next: NextFunction) => {
+  console.log("Application-level middleware");
+  next();
+});
 
 interface Book {
-  id: number
-  title: string
-  author: string
+  id: number;
+  title: string;
+  author: string;
 }
 
 const books: Book[] = [
-  { id: 1, title: 'Тіні забутих предків', author: 'Михайло Коцюбинський' },
-  { id: 2, title: 'Захар Беркут', author: 'Іван Франко' },
-  { id: 3, title: 'Кобзар', author: 'Тарас Шевченко' },
-]
+  { id: 1, title: "Тіні забутих предків", author: "Михайло Коцюбинський" },
+  { id: 2, title: "Захар Беркут", author: "Іван Франко" },
+  { id: 3, title: "Кобзар", author: "Тарас Шевченко" },
+];
 
 const logRequest = (req: Request, res: Response, next: NextFunction) => {
-  console.log(`Creating book: ${req.body.title}`)
-  next()
-}
+  console.log(`Creating book: ${req.body.title}`);
+  next();
+};
 
 const checkBookData = (req: Request, res: Response, next: NextFunction) => {
   if (!req.body.title || !req.body.author) {
     return res.status(400).json({
-      error: 'Title and author are required',
-    })
+      error: "Title and author are required",
+    });
   }
-  next()
-}
+  next();
+};
 
 const checkDuplicates = (req: Request, res: Response, next: NextFunction) => {
   const exists = books.find(
     (b) => b.title.toLowerCase() === req.body.title.toLowerCase(),
-  )
+  );
 
   if (exists) {
     return res.status(409).json({
-      error: 'Book with this title already exists',
-    })
+      error: "Book with this title already exists",
+    });
   }
-  next()
-}
+  next();
+};
 
 app.post(
-  '/api/books',
+  "/api/books",
   logRequest,
   checkBookData,
   checkDuplicates,
@@ -52,12 +59,12 @@ app.post(
       id: books.length + 1,
       title: req.body.title,
       author: req.body.author,
-    }
+    };
 
-    books.push(newBook)
-    res.status(201).json(newBook)
+    books.push(newBook);
+    res.status(201).json(newBook);
   },
-)
+);
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`)
-})
+  console.log(`Server is running on http://localhost:${PORT}`);
+});

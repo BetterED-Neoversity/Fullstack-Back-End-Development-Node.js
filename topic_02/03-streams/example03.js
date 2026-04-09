@@ -1,16 +1,15 @@
-import fs from 'fs'
+import fs from "fs";
 
-// Читаємо тільки перші 100 байтів
-const read = fs.createReadStream('test.txt', {
-  start: 0,
-  end: 99,
-  encoding: 'utf8',
-})
+const write = fs.createWriteStream("output.txt");
 
-read.on('data', (chunk) => {
-  console.log('Початок файлу:', chunk)
-})
+write.write("Перший рядок\n");
+write.write("Другий рядок\n");
+write.end("Останній рядок\n");
 
-read.on('end', () => {
-  console.log('Прочитано перші 100 байтів')
-})
+write.on("finish", () => {
+  console.log("Все записано на диск");
+});
+
+write.on("error", (err) => {
+  console.error("Помилка запису:", err.message);
+});

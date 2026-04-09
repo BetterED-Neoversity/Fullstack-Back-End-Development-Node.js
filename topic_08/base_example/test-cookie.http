@@ -1,0 +1,8 @@
+### Get Username from Cookies
+GET http://localhost:3000/read
+
+### Set Cookies
+GET http://localhost:3000/set
+
+### Logout and Clear Cookies
+GET http://localhost:3000/logout
