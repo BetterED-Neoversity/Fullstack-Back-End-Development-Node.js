@@ -1,0 +1,24 @@
+### Настройки REST Client
+@restClientCookiesEnabled = false
+
+### Логін з успіхом
+POST http://localhost:3000/login 
+Content-Type: application/json
+
+{
+  "email": "admin@example.com"
+}
+
+### Логін з помилкою
+POST http://localhost:3000/login 
+Content-Type: application/json
+
+{
+  "email": "user@example.com"
+}
+
+### Отримання привітання
+GET http://localhost:3000/hello
+
+### Отримання інформації про користувача з id 3
+GET http://localhost:3000/users/3

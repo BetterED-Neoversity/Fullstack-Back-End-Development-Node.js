@@ -1,0 +1,11 @@
+### Вітання
+GET http://localhost:3000/hello 
+
+### Логін
+POST http://localhost:3000/login 
+Content-Type: application/json
+
+{
+  "username": "user1",
+  "password": "password123"
+}

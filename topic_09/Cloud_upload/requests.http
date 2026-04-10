@@ -1,0 +1,15 @@
+### Завантаження зображення
+POST http://localhost:3000/upload
+Content-Type: multipart/form-data; boundary=----Boundary
+
+------Boundary
+Content-Disposition: form-data; name="image"; filename="photo.jpg"
+Content-Type: image/jpeg
+
+< ./photo.jpg
+------Boundary--
+
+### Видалення з Cloudinary за publicId (з поля publicId у відповіді POST /upload)
+# Якщо publicId містить «/» (наприклад demo/abc123), у шляху закодуй слеш: demo%2Fabc123
+@publicId = publicId у відповіді POST /upload
+DELETE http://localhost:3000/upload/{{publicId}}

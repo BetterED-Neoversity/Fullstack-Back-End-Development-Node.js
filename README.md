@@ -77,7 +77,7 @@ npm run start:upload
 
 ### [Тема 5. Основи технології Docker](./topic_05/)
 
-Основна ідея — запускати залежності (Redis, PostgreSQL) у контейнерах через `docker compose`, щоб Node.js-застосунок міг до них підключатись.
+Основи Docker: що таке image і контейнер, як запустити контейнер, `Dockerfile`, `docker compose`.
 
 ```bash
 cd topic_05
@@ -120,21 +120,42 @@ npm run dev          # http://localhost:3000/api-docs
 
 ### [Тема 8. Stateful та Stateless автентифікація](./topic_08/)
 
-| Папка                                           | Зміст                                                                                                                          |
-| ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| [`base_example/`](./topic_08/base_example/)     | Окремі демо: cookie, `express-session`, bcrypt, JWT (створення / декодування / перевірка / помилки / захищений маршрут)        |
-| [`stateful_auth/`](./topic_08/stateful_auth/)   | Повний stateful-логін: сесія на сервері (`connect-sqlite3`), bcrypt, Prisma. `start/` — каркас, `finish/` — готовий застосунок |
-| [`stateless_auth/`](./topic_08/stateless_auth/) | Stateless JWT: `start/` — REST API з теми 7 + заготовка під JWT middleware                                                     |
+Огляд теми: [`topic_08/README.md`](./topic_08/README.md).
+
+| Папка                                           | Зміст                                                                                                                                 |
+| ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| [`base_example/`](./topic_08/base_example/)     | Малі демо: cookie, `express-session`, bcrypt, JWT (консоль + захищений маршрут)                                                       |
+| [`stateful_auth/`](./topic_08/stateful_auth/)   | Повний логін на сесіях (`connect-sqlite3`), EJS, Prisma + SQLite                                                                      |
+| [`stateless_auth/`](./topic_08/stateless_auth/) | REST як у темі 7 + access JWT; refresh у БД і httpOnly cookie (`start/` без auth, `finish/` — повний цикл). Деталі в README підпапок |
 
 ```bash
 # base_example
 cd topic_08/base_example && npm install
-npm run jwt:create
 npm run jwt:api      # http://localhost:3000
 
 # stateful_auth/finish
 cd topic_08/stateful_auth/finish && npm install
 copy .env.example .env
 npx prisma migrate dev
-npm run dev          # http://localhost:3000
+npm run dev
+
+# stateless_auth/finish (PostgreSQL + JWT_SECRET у .env)
+cd topic_08/stateless_auth/finish && npm install
+copy .env.example .env
+npx prisma migrate dev
+npm run dev          # http://localhost:3000/api-docs
+```
+
+---
+
+## Тема 9
+
+### [Додаткові можливості (Security, Logging, Upload, Email, Cron)](./topic_09/)
+
+Окремі TypeScript-демо: `helmet`, rate limiting, Pino, Cloudinary + multer, Nodemailer, `node-cron`. Деталі: [`topic_09/README.md`](./topic_09/README.md).
+
+```bash
+cd topic_09 && npm install
+npx tsx Security/app-full.ts
+npx tsx App-logging/app-simple.ts
 ```

@@ -9,4 +9,4 @@
 | [`start/`](./start/) | Каркас під той самий тип застосунку (серверний рендер + БД), без готового логіну. Деталі: [`start/README.md`](./start/README.md) |
 | [`finish/`](./finish/) | Повний цикл: реєстрація → вхід → захищена сторінка → вихід. Деталі: [`finish/README.md`](./finish/README.md) |
 
-Поруч у темі 8: [`base_example`](../base_example/) — окремі маленькі демо (cookie, session, JWT), без повного сценарію «сайт з акаунтом».
+Поруч у темі 8: [`base_example`](../base_example/) — малі демо (cookie, session, JWT); [`stateless_auth`](../stateless_auth/) — REST + access JWT і refresh у БД.
