@@ -6,11 +6,11 @@
 
 | Папка | Зміст |
 |-------|--------|
-| [`Security/`](./Security/) | Деталі: [`Security/README.md`](./Security/README.md) |
-| [`App-logging/`](./App-logging/) | Деталі: [`App-logging/README.md`](./App-logging/README.md) |
-| [`Cloud_upload/`](./Cloud_upload/) | Деталі: [`Cloud_upload/README.md`](./Cloud_upload/README.md) |
-| [`Send-email/`](./Send-email/) | Деталі: [`Send-email/README.md`](./Send-email/README.md) |
-| [`Cron-example/`](./Cron-example/) | Деталі: [`Cron-example/README.md`](./Cron-example/README.md) |
+| [`Security/`](./Security/) | `helmet`, `express-rate-limit`: базовий та повний приклад. Деталі: [`Security/README.md`](./Security/README.md) |
+| [`App-logging/`](./App-logging/) | Структуроване логування через `pino` + `pino-http`. Деталі: [`App-logging/README.md`](./App-logging/README.md) |
+| [`Cloud_upload/`](./Cloud_upload/) | `multer` + Cloudinary: завантаження зображень (.env). Деталі: [`Cloud_upload/README.md`](./Cloud_upload/README.md) |
+| [`Send-email/`](./Send-email/) | Nodemailer: відправка листів через SMTP (.env). Деталі: [`Send-email/README.md`](./Send-email/README.md) |
+| [`Cron-example/`](./Cron-example/) | `node-cron`: періодичні задачі за розкладом. Деталі: [`Cron-example/README.md`](./Cron-example/README.md) |
 
 ## Встановлення
 

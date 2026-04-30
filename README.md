@@ -148,14 +148,85 @@ npm run dev          # http://localhost:3000/api-docs
 
 ---
 
-## Тема 9
+## Тиждень 5 — Додаткові можливості та тестування
 
-### [Додаткові можливості (Security, Logging, Upload, Email, Cron)](./topic_09/)
+### [Тема 9. Додаткові можливості (Security, Logging, Cloud upload, Email, Cron)](./topic_09/)
 
-Окремі TypeScript-демо: `helmet`, rate limiting, Pino, Cloudinary + multer, Nodemailer, `node-cron`. Деталі: [`topic_09/README.md`](./topic_09/README.md).
+Окремі TypeScript-демо: безпека HTTP (`helmet`, rate limit), структуроване логування (`pino`), завантаження зображень у Cloudinary, листи через Nodemailer, періодичні задачі `node-cron`. Деталі: [`topic_09/README.md`](./topic_09/README.md).
+
+| Папка                              | Зміст                                                    |
+| ---------------------------------- | -------------------------------------------------------- |
+| [`Security/`](./topic_09/Security/)       | `helmet`, `express-rate-limit`: базовий та повний приклад |
+| [`App-logging/`](./topic_09/App-logging/) | Структуроване логування через `pino` + `pino-http`       |
+| [`Cloud_upload/`](./topic_09/Cloud_upload/) | `multer` + Cloudinary: завантаження зображень (.env)     |
+| [`Send-email/`](./topic_09/Send-email/)   | Nodemailer: відправка листів через SMTP (.env)            |
+| [`Cron-example/`](./topic_09/Cron-example/) | `node-cron`: періодичні задачі за розкладом               |
 
 ```bash
 cd topic_09 && npm install
-npx tsx Security/app-full.ts
+
+npx tsx Security/app-helmet.ts
 npx tsx App-logging/app-simple.ts
+npx tsx Cloud_upload/app.ts
+npx tsx Send-email/app.ts
+npx tsx Cron-example/app.ts
 ```
+
+> **П.Note** Cloud_upload та Send-email потребують `.env` — скопіювати `.env.example` → `.env` у відповідній папці.
+
+---
+
+### [Тема 10. Тестування REST API](./topic_10/)
+
+JWT-автентифікація з access/refresh токенами + тести на Vitest + Supertest. Читання ресурсів публічне, створення/зміна — з токеном.
+
+| Папка                              | Зміст                                                                                 |
+| ---------------------------------- | ------------------------------------------------------------------------------------- |
+| [`start/`](./topic_10/start/)      | REST API з JWT auth: register/login/refresh/logout, захист POST/PATCH/DELETE ресурсів |
+| [`finish/`](./topic_10/finish/)    | Те саме що `start/` + повний набір тестів (auth, recipes, validators) з coverage      |
+
+```bash
+# start
+cd topic_10/start && npm install
+copy .env.example .env
+npx prisma migrate dev
+npm run dev          # http://localhost:3000/api-docs
+
+# finish
+cd topic_10/finish && npm install
+copy .env.example .env
+npx prisma migrate dev
+npm run dev          # http://localhost:3000/api-docs
+npm test             # запуск тестів
+npm run test:coverage # coverage звіт
+```
+
+---
+
+## Тиждень 6 — Real-time додатки та деплой
+
+### [Тема 11. Real-time чат з Socket.IO](./topic_11/)
+
+Реалізація повноцінного чату з WebSocket через Socket.IO. Наразі в розробці: базовий сервер з Express + Socket.IO, Prisma для PostgreSQL, валідація через Zod, логування Pino, JWT-автентифікація.
+
+| Папка                              | Зміст                                                                 |
+| ---------------------------------- | --------------------------------------------------------------------- |
+| [`src/`](./topic_11/src/)          | `server.ts` — базовий Socket.IO сервер з Express                     |
+| [`prisma/`](./topic_11/prisma/)    | Схема БД для чату (User, Session, Message)                           |
+| [`public/`](./topic_11/public/)    | Статичні файли для клієнтської частини                               |
+
+```bash
+cd topic_11 && npm install
+npx prisma init --datasource-provider postgresql
+# Додати моделі в prisma/schema.prisma
+npx prisma migrate dev
+npm run dev          # http://localhost:3000
+```
+
+> **Примітка** Тема 11 ще в розробці. Повноцінний чат з автентифікацією, кімнатами, історією повідомлень буде додано пізніше.
+
+---
+
+### [Тема 12. Деплой застосунків](./topic_12/)
+
+Теоретична тема: стратегії деплою Node.js застосунків, CI/CD пайплайни, хмарні платформи (AWS, Heroku, Vercel), Docker у продакшені, моніторинг та логування. Без практичних завдань.
