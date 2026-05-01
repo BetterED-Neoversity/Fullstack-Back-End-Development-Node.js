@@ -207,23 +207,30 @@ npm run test:coverage # coverage звіт
 
 ### [Тема 11. Real-time чат з Socket.IO](./topic_11/)
 
-Реалізація повноцінного чату з WebSocket через Socket.IO. Наразі в розробці: базовий сервер з Express + Socket.IO, Prisma для PostgreSQL, валідація через Zod, логування Pino, JWT-автентифікація.
+Повноцінний чат на Express, Socket.IO, Prisma і PostgreSQL. Авторизація через HTTP API, сесії з httpOnly cookie, Socket.IO кімнати, збереження повідомлень у базі, історія при вході.
 
 | Папка                              | Зміст                                                                 |
 | ---------------------------------- | --------------------------------------------------------------------- |
-| [`src/`](./topic_11/src/)          | `server.ts` — базовий Socket.IO сервер з Express                     |
-| [`prisma/`](./topic_11/prisma/)    | Схема БД для чату (User, Session, Message)                           |
-| [`public/`](./topic_11/public/)    | Статичні файли для клієнтської частини                               |
+| [`src/`](./topic_11/src/)          | `server.ts`, controllers, middlewares, routes, services, sockets, types |
+| [`public/`](./topic_11/public/)    | `index.html` + `client.js` — фронтенд з Tailwind CDN                 |
+| [`prisma/`](./topic_11/prisma/)    | Схема БД: User, Session, Message                                     |
+
+**Основні можливості:**
+- HTTP авторизація: `POST /auth/register`, `POST /auth/login`, `POST /auth/logout`
+- Сесії з httpOnly cookie `sessionId`
+- Socket.IO handshake читає cookie, знаходить сесію і записує користувача в `socket.data`
+- Кімнати: `Загальний`, `JavaScript`, `Python`
+- Події: `join room`, `leave room`, `chat message`, `user typing`
+- Історія повідомлень при вході в кімнату
 
 ```bash
 cd topic_11 && npm install
-npx prisma init --datasource-provider postgresql
-# Додати моделі в prisma/schema.prisma
-npx prisma migrate dev
+copy .env.example .env
+# Заповнити DATABASE_URL у .env
+npx prisma db push
+npx prisma generate
 npm run dev          # http://localhost:3000
 ```
-
-> **Примітка** Тема 11 ще в розробці. Повноцінний чат з автентифікацією, кімнатами, історією повідомлень буде додано пізніше.
 
 ---
 
